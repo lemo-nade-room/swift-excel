@@ -42,6 +42,10 @@ jobs:
         with:
           swift-version: "5.10"
 
+      - name: Remove SwiftLint plugin from Package.swift
+        run: |
+          sed -i '/.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint"),/d' Package.swift
+
       - run: swift build
 
       - run: swift test

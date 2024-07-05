@@ -21,13 +21,17 @@ let package = Package(
         .target(
             name: "SwiftExcel",
             swiftSettings: swiftSettings,
-            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint"),
+            ]
         ),
         .testTarget(
             name: "SwiftExcelTests",
             dependencies: ["SwiftExcel"],
             swiftSettings: swiftSettings,
-            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+            plugins: [
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint"),
+            ]
         ),
     ]
 )

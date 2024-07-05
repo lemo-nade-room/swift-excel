@@ -3,7 +3,7 @@ name: Swift CI
 on:
   pull_request:
     paths:
-      - 'swift-ci.yaml'
+      - '.github/workflows/swift-ci.yaml'
       - '.swiftlint.yml'
       - '**/*.swift'
 

@@ -12,16 +12,23 @@ let package = Package(
             name: "SwiftExcel",
             targets: ["SwiftExcel"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/realm/SwiftLint.git", from: "0.55.1"),
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "SwiftExcel"),
+            name: "SwiftExcel",
             swiftSettings: swiftSettings,
+            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+        ),
         .testTarget(
             name: "SwiftExcelTests",
-            dependencies: ["SwiftExcel"]),
+            dependencies: ["SwiftExcel"],
             swiftSettings: swiftSettings,
+            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+        ),
     ]
 )
 

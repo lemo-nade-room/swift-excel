@@ -1,3 +1,3 @@
-func add(a: Int, b: Int) -> Int {
-    a + b
+func add(lhs: Int, rhs: Int) -> Int {
+    lhs + rhs
 }

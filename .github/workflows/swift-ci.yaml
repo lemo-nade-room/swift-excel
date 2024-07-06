@@ -10,6 +10,8 @@ on:
 jobs:
   SwiftLint:
     runs-on: ubuntu-latest
+    env:
+      ENABLE_SWIFT_LINT: true
     steps:
       - uses: actions/checkout@v4
 
@@ -46,10 +48,6 @@ jobs:
       - uses: swift-actions/setup-swift@v2
         with:
           swift-version: "5.10"
-
-      - name: Remove SwiftLint plugin from Package.swift
-        run: |
-          sed -i '/.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint"),/d' Package.swift
 
       - run: swift build
 

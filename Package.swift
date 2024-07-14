@@ -1,6 +1,7 @@
 // swift-tools-version: 5.10
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
+import Foundation
 import PackageDescription
 
 let package = Package(
@@ -21,13 +22,13 @@ let package = Package(
         .target(
             name: "SwiftExcel",
             swiftSettings: swiftSettings,
-            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+            plugins: swiftLintPlugins
         ),
         .testTarget(
             name: "SwiftExcelTests",
             dependencies: ["SwiftExcel"],
             swiftSettings: swiftSettings,
-            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+            plugins: swiftLintPlugins
         ),
     ]
 )
@@ -36,3 +37,27 @@ var swiftSettings: [SwiftSetting] { [
     .enableUpcomingFeature("DisableOutwardActorInference"),
     .enableExperimentalFeature("StrictConcurrency"),
 ] }
+
+var swiftLintPlugins: [Target.PluginUsage] {
+    guard Environment.enableSwiftLint || !Environment.ci else {
+        return []
+    }
+    return [
+        .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint"),
+    ]
+}
+
+enum Environment {
+    static func find(_ key: String) -> String? {
+        ProcessInfo.processInfo.environment[key]
+    }
+    static var enableSwiftLint: Bool {
+        find("ENABLE_SWIFT_LINT") == "true"
+    }
+    static var ci: Bool {
+        find("CI") != nil
+    }
+}
+
+
+
